@@ -207,3 +207,63 @@ update the readme on all the new features that u added and give a technical over
 *Viewed [README.md](file:///c:/Users/ASUS/Documents/GitHub/space/README.md) *
 
 *Edited relevant file*
+
+### User Input
+
+in this how is the advanced ml model will be useful and also i wanna make the model real so tell me how to do that where to take datasets from ad train that
+
+*Edited relevant file*
+
+*Edited relevant file*
+
+*Edited relevant file*
+
+*Edited relevant file*
+
+*Edited relevant file*
+
+*Edited relevant file*
+
+### User Input
+
+why are these backendfiles in a seperate backend folder put everything in onr folder'
+
+*User accepted the command `move backend\ml_training\data_loader.py backend\data_loader.py; move backend\ml_training\train_lstm.py backend\train_lstm.py; rmdir backend\ml_training`*
+
+*Edited relevant file*
+
+### User Input
+
+its still outside  put it in this folder Space-Weather-AI\backend\services and also connect it to backend to use it
+
+*User accepted the command `move backend\data_loader.py backend\services\data_loader.py; move backend\train_lstm.py backend\services\train_lstm.py`*
+
+*Listed directory [backend](file:///c:/Users/ASUS/Documents/GitHub/space/backend) *
+
+*User accepted the command `move backend\data_loader.py backend\services\data_loader.py`*
+
+*User accepted the command `move backend\train_lstm.py backend\services\train_lstm.py`*
+
+*Listed directory [services](file:///c:/Users/ASUS/Documents/GitHub/space/backend/services) *
+
+*Listed directory [api](file:///c:/Users/ASUS/Documents/GitHub/space/backend/api) *
+
+*Listed directory [backend](file:///c:/Users/ASUS/Documents/GitHub/space/backend) *
+
+*Listed directory [space](file:///c:/Users/ASUS/Documents/GitHub/space) *
+
+*Searched filesystem*
+
+*User accepted the command `move backend\data_loader.py Space-Weather-AI\backend\services\data_loader.py; move backend\train_lstm.py Space-Weather-AI\backend\services\train_lstm.py; rmdir backend`*
+
+*Viewed [predictor.py](file:///c:/Users/ASUS/Documents/GitHub/space/Space-Weather-AI/backend/services/predictor.py) *
+
+*Viewed [train_lstm.py](file:///c:/Users/ASUS/Documents/GitHub/space/Space-Weather-AI/backend/services/train_lstm.py) *
+
+*Edited relevant file*
+
+*Edited relevant file*
+
+*Edited relevant file*
+
+*Edited relevant file*
