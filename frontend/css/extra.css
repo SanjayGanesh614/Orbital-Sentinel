@@ -1,0 +1,79 @@
+/* Forecast Panel */
+.forecast-card .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.forecast-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.f-time {
+    color: var(--primary);
+    font-weight: bold;
+    width: 60px;
+}
+
+.f-val {
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Alerts Panel */
+.alerts-card .card-body::-webkit-scrollbar {
+    width: 5px;
+}
+.alerts-card .card-body::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+}
+
+.no-alerts {
+    color: var(--success);
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.alert-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    border-left: 3px solid var(--primary);
+}
+
+.alert-item.critical { border-left-color: var(--danger); background: rgba(255, 0, 85, 0.1); }
+.alert-item.high { border-left-color: var(--danger); }
+.alert-item.medium { border-left-color: var(--warning); }
+.alert-item.low { border-left-color: var(--success); }
+
+.alert-icon {
+    margin-right: 10px;
+    color: #fff;
+}
+
+.alert-title {
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+    color: #fff;
+}
+
+.alert-msg {
+    font-size: 0.8rem;
+    color: #ccc;
+    line-height: 1.2;
+}
+
+.alert-time {
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 4px;
+}

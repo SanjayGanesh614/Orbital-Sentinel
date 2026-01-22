@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Weather AI | Mission Control</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/4.0.0/satellite.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/extra.css">
+</head>
+
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="overlay"></div>
+
+    <div class="container">
+        <header class="header glass-panel">
+            <div class="logo-section">
+                <div class="logo-icon"><i class="fas fa-solar-system fa-spin" style="--fa-animation-duration: 10s;"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>ORBITAL<span class="highlight">SENTINEL</span></h1>
+                    <p>AI-POWERED SPACE WEATHER PREDICTION SYSTEM</p>
+                </div>
+            </div>
+            <div class="status-section">
+                <div class="live-indicator"><span class="pulse-dot"></span>LIVE FEED</div>
+                <div class="clock" id="system-clock">00:00:00 UTC</div>
+                <button id="logout-btn"
+                    style="margin-left:20px; background:transparent; border:1px solid var(--primary); color:var(--primary); padding:5px 15px; cursor:pointer; font-family:'Orbitron',sans-serif;">LOGOUT</button>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <div class="col-left">
+                <div class="card glass-card severity-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-shield-virus"></i> THREAT LEVEL</h2>
+                    </div>
+                    <div class="card-body centered">
+                        <div class="severity-ring">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" id="severity-ring-bg"></circle>
+                                <circle cx="50" cy="50" r="45" id="severity-ring-progress"></circle>
+                            </svg>
+                            <div class="severity-content">
+                                <span id="severity-level">SCANNING</span>
+                                <span class="confidence-label">CONFIDENCE</span>
+                                <span id="confidence-value">--%</span>
+                            </div>
+                        </div>
+                        <div class="prediction-text" id="prediction-explanation">Initializing AI Model...</div>
+                    </div>
+                </div>
+                <!-- NEW: Forecast Panel -->
+                <div class="card glass-card forecast-card" style="margin-top: 20px;">
+                    <div class="card-header">
+                        <h2><i class="fas fa-clock"></i> PREDICTIVE TIMELINE</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="forecast-row" id="forecast-1h">
+                            <span class="f-time">T+1H:</span> <span class="f-val">--</span>
+                        </div>
+                        <div class="forecast-row" id="forecast-6h">
+                            <span class="f-time">T+6H:</span> <span class="f-val">--</span>
+                        </div>
+                        <div class="forecast-row" id="forecast-24h">
+                            <span class="f-time">T+24H:</span> <span class="f-val">--</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card glass-card params-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-microchip"></i> TELEMETRY</h2>
+                    </div>
+                    <div class="card-body grid-2">
+                        <div class="param-box">
+                            <span class="label">WIND SPEED</span>
+                            <div class="value-group"><span class="value" id="wind-speed">--</span><span
+                                    class="unit">km/s</span></div>
+                            <div class="bar-container">
+                                <div class="bar" id="bar-speed"></div>
+                            </div>
+                        </div>
+                        <div class="param-box">
+                            <span class="label">DENSITY</span>
+                            <div class="value-group"><span class="value" id="density-value">--</span><span
+                                    class="unit">p/cc</span></div>
+                            <div class="bar-container">
+                                <div class="bar" id="bar-density"></div>
+                            </div>
+                        </div>
+                        <div class="param-box">
+                            <span class="label">IMF Bz</span>
+                            <div class="value-group"><span class="value" id="bz-value">--</span><span
+                                    class="unit">nT</span></div>
+                            <div class="bar-container">
+                                <div class="bar" id="bar-bz"></div>
+                            </div>
+                        </div>
+                        <div class="param-box">
+                            <span class="label">Kp INDEX</span>
+                            <div class="value-group"><span class="value" id="kp-value">--</span><span class="unit">MAX
+                                    9</span></div>
+                            <div class="bar-container">
+                                <div class="bar" id="bar-kp"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-center">
+                <div class="card glass-card globe-card" style="height: 400px; position: relative; overflow: hidden;">
+                    <div class="card-header flex-between"
+                        style="position: absolute; top:0; width:100%; z-index: 10; background: rgba(0,0,0,0.3);">
+                        <h2><i class="fas fa-globe-americas"></i> ACTIVE SATELLITE TRACKER</h2>
+                        <span class="badge" id="risk-badge">GLOBAL RISK: LOW</span>
+                    </div>
+                    <div id="globe-container" style="width: 100%; height: 100%;"></div>
+                </div>
+
+                <div class="card glass-card chart-container">
+                    <div class="card-header flex-between">
+                        <h2><i class="fas fa-chart-area"></i> SOLAR WIND VELOCITY</h2>
+                    </div>
+                    <div class="card-body"><canvas id="chart-wind"></canvas></div>
+                </div>
+                <div class="card glass-card chart-container">
+                    <div class="card-header flex-between">
+                        <h2><i class="fas fa-magnet"></i> IMF (Bz)</h2>
+                    </div>
+                    <div class="card-body"><canvas id="chart-mag"></canvas></div>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <!-- NEW: Active Alerts Panel -->
+                <div class="card glass-card alerts-card" style="margin-bottom: 20px;">
+                    <div class="card-header">
+                        <h2><i class="fas fa-exclamation-triangle"></i> ACTIVE ALERTS</h2>
+                    </div>
+                    <div class="card-body" id="alerts-container"
+                        style="min-height: 100px; max-height: 150px; overflow-y: auto;">
+                        <div class="no-alerts">SYSTEM NOMINAL</div>
+                    </div>
+                </div>
+
+                <div class="card glass-card isi-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-server"></i> INFRASTRUCTURE RISK</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="isi-meter">
+                            <div class="isi-number" id="isi-value">0</div>
+                            <div class="isi-label">STRESS INDEX</div>
+                        </div>
+                        <div class="risk-rows">
+                            <div class="risk-row">
+                                <div class="risk-info">
+                                    <h4>SATELLITES</h4><span id="sat-risk-level">LOW</span>
+                                </div>
+                                <div class="risk-indicator-light" id="sat-light"></div>
+                            </div>
+                            <div class="risk-row">
+                                <div class="risk-info">
+                                    <h4>POWER GRID</h4><span id="grid-risk-level">LOW</span>
+                                </div>
+                                <div class="risk-indicator-light" id="grid-light"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card glass-card log-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-terminal"></i> SYSTEM LOGS</h2>
+                    </div>
+                    <div class="card-body terminal-text" id="action-log"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

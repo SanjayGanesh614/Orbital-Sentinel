@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Orbital Sentinel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #050b14;
+            overflow: hidden;
+        }
+        .auth-card {
+            width: 400px;
+            padding: 40px;
+            background: rgba(5, 11, 20, 0.8);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        .auth-card h1 {
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            color: #8ba4b6;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: #000;
+            border: none;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .btn-primary:hover {
+            background: #fff;
+            box-shadow: 0 0 15px var(--primary);
+        }
+        .auth-links {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        .auth-links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .error-msg {
+            color: var(--danger);
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield" style="position: absolute; top:0; left:0; z-index:-1;"></canvas>
+    
+    <div class="auth-card">
+        <h1>Access Control</h1>
+        <div id="error-msg" class="error-msg">Invalid credentials</div>
+        <form id="login-form">
+            <div class="form-group">
+                <label>Email Frequency</label>
+                <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Security Key</label>
+                <input type="password" id="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn-primary">Initialize Session</button>
+        </form>
+        <div class="auth-links">
+            New unit? <a href="register.html">Request Clearance</a>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
